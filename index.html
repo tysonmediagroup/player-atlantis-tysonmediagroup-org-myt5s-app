@@ -1,514 +1,637 @@
 <!DOCTYPE html>
-<html lang="en" class="intro-complete" data-theme="noir">
+<html lang="en" class="intro-animated-page" data-theme="noir-aero">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TYSON Atlantis Player App — Sped Up, Slowed, Ambient & Cinema</title>
+    <title>TYSON Atlantis — atlantis.tysonmediagroup.org</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Inter:wght@300;400;500;600;700&family=M+PLUS+Rounded+1c:wght@400;500;700;800&family=Nunito:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    <!-- Google Identity Services SDK -->
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
-<body class="standalone-player-body app-mode">
-    <!-- T5S Standalone Boot Splash Sequence (Pure Black, Crisp, No Glow) -->
-    <div class="t5s-boot-splash-container" id="t5s-boot-splash" aria-hidden="true">
-        <!-- Phase 1: T5S Boot Logo (0.75s) -->
-        <div class="t5s-boot-phase t5s-boot-logo-phase active" id="boot-phase-1">
-            <img src="assets/images/t5s%20boot%20logo.png" alt="T5S Boot Logo" class="t5s-boot-logo-img">
-        </div>
-        <!-- Phase 2: New Background myT5S (0.75s) -->
-        <div class="t5s-boot-phase t5s-boot-backdrop-phase" id="boot-phase-2" style="background-image: url('assets/images/New%20Background%20%22myT5S.jpg');">
-            <div class="t5s-boot-overlay"></div>
-        </div>
-    </div>
+<body>
+    <!-- Main Top Navigation Header -->
+    <header class="main-header" id="main-header">
+        <div class="container-wide nav-container">
+            <a href="#home" class="nav-logo" aria-label="TYSON Atlantis Home">
+                <img src="assets/LOGOSFORGEMINI/TYSONAtlantisBanner.png" alt="TYSON Atlantis" class="logo-img">
+            </a>
 
-    <!-- MAIN PRO WEB APP SHELL -->
-    <div class="app-workspace-root">
-        <!-- App Top Navigation Bar (Clean Pro App Chrome) -->
-        <header class="app-topbar" id="main-header">
-            <div class="app-topbar-left">
-                <a href="index.html" class="app-brand-logo" aria-label="TYSON Atlantis App">
-                    <img src="assets/images/TYSONAtlantisBanner.png" alt="TYSON Atlantis" class="app-logo-img">
-                </a>
-                <span class="app-badge-beta">BETA</span>
-            </div>
+            <nav class="main-nav" id="main-nav">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="player.html" class="nav-link nav-deck-link">Player</a>
+                <a href="#catalog" class="nav-link">Releases</a>
+                <a href="#emotion-ambience" class="nav-link">Emotion Ambience</a>
+                <a href="#studio" class="nav-link">Studio</a>
+                <a href="#about" class="nav-link">Philosophy</a>
+            </nav>
 
-            <div class="app-topbar-center">
-                <div class="app-station-indicator">
-                    <span class="station-status-label">SPED UP • SLOWED • 432HZ DSP STATION</span>
-                </div>
-            </div>
-
-            <div class="app-topbar-right">
-                <button class="app-bar-btn" id="header-cinema-btn" title="Open Fullscreen Cinema Mode">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
-                    <span>Cinema</span>
+            <div class="nav-actions">
+                <button id="global-audio-toggle" class="btn btn-outline btn-sm audio-play-btn" title="Toggle Audio Player">
+                    <span id="global-audio-label">Play Sunset Theme</span>
                 </button>
-
-                <button class="app-bar-btn" id="settings-toggle-btn" aria-label="Theme & Appearance Settings" title="Appearance Settings">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <button class="settings-btn" id="settings-toggle-btn" aria-label="Open Appearance Settings" title="Appearance Settings">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="12" cy="12" r="3"></circle>
-                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
                     </svg>
-                    <span>Theme</span>
                 </button>
-
-                <!-- Hidden audio button kept for app.js backwards-compatibility -->
-                <button id="global-audio-toggle" style="display: none;"><span id="global-audio-label"></span></button>
-
-                <!-- User Profile / Auth Area -->
-                <div class="auth-header-wrap" id="auth-header-wrap">
-                    <button class="btn-auth-signin" id="header-signin-btn">
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" y1="12" x2="3" y2="12"></line></svg>
-                        <span>Sign In</span>
-                    </button>
-                    <div class="user-profile-badge" id="user-profile-badge" style="display: none;">
-                        <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Atlantis" alt="Avatar" class="user-avatar-img" id="user-avatar-img">
-                        <span class="user-profile-name" id="user-display-name">Guest</span>
-                        <span class="user-provider-tag tag-discord" id="user-provider-tag">DISCORD</span>
-                        <!-- Profile Dropdown Menu -->
-                        <div class="user-dropdown-menu" id="user-dropdown-menu">
-                            <button class="dropdown-item" id="dropdown-my-liked">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-                                <span>Liked Songs</span>
-                            </button>
-                            <button class="dropdown-item" id="dropdown-my-playlists">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
-                                <span>My Playlists</span>
-                            </button>
-                            <div class="dropdown-divider"></div>
-                            <button class="dropdown-item" id="dropdown-signout" style="color: #f87171;">
-                                <span>Sign Out</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle Menu">
+                    <span></span><span></span><span></span>
+                </button>
             </div>
-        </header>
+        </div>
+    </header>
 
-        <!-- App Body Layout (Left Sidebar Rail + Main Viewport) -->
-        <div class="app-body-container">
-            <!-- Left Sidebar Navigation Rail -->
-            <aside class="app-sidebar-rail" id="app-sidebar">
-                <div class="sidebar-section-title">STATIONS &amp; VIBES</div>
-                <nav class="sidebar-nav-list" id="playlist-filters-bar">
-                    <button class="sidebar-tab-btn filter-tab active" data-category="all">
-                        <span class="tab-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="3"></circle></svg></span>
-                        <span class="tab-label">All Tracks</span>
-                        <span class="tab-count">14</span>
-                    </button>
-                    <button class="sidebar-tab-btn filter-tab" data-category="slowed">
-                        <span class="tab-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></span>
-                        <span class="tab-label">Slowed &amp; Reverb</span>
-                    </button>
-                    <button class="sidebar-tab-btn filter-tab" data-category="nightcore">
-                        <span class="tab-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg></span>
-                        <span class="tab-label">Sped Up &amp; Boosted</span>
-                    </button>
-                    <button class="sidebar-tab-btn filter-tab" data-category="emotion">
-                        <span class="tab-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20M2 6h20M2 18h20"></path></svg></span>
-                        <span class="tab-label">432Hz Submerged</span>
-                    </button>
-                    <button class="sidebar-tab-btn filter-tab" data-category="nostalgia">
-                        <span class="tab-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"></rect><circle cx="8" cy="10" r="2"></circle><circle cx="16" cy="10" r="2"></circle></svg></span>
-                        <span class="tab-label">PS2 &amp; 2010 Core</span>
-                    </button>
-                    <button class="sidebar-tab-btn filter-tab" data-category="dnb">
-                        <span class="tab-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="2" x2="12" y2="22"></line><line x1="17" y1="5" x2="17" y2="19"></line><line x1="7" y1="9" x2="7" y2="15"></line></svg></span>
-                        <span class="tab-label">Liquid Jungle / DnB</span>
-                    </button>
-                </nav>
-
-                <div class="sidebar-divider"></div>
-
-                <div class="sidebar-section-title">YOUR LIBRARY</div>
-                <nav class="sidebar-nav-list">
-                    <button class="sidebar-tab-btn filter-tab" data-category="liked">
-                        <span class="tab-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></span>
-                        <span class="tab-label">Liked Songs</span>
-                    </button>
-                    <button class="sidebar-tab-btn filter-tab" data-category="custom">
-                        <span class="tab-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg></span>
-                        <span class="tab-label">Custom Playlists</span>
-                    </button>
-                </nav>
-
-                <div class="sidebar-footer-action">
-                    <button class="btn-sidebar-create-playlist" id="open-create-playlist-btn">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                        <span>New Playlist</span>
-                    </button>
+    <main id="spa-main-content">
+        <!-- ===================================================================
+             VIEW 1: HOME (#home)
+             =================================================================== -->
+        <div id="view-home" class="page-view active-view">
+            <!-- Hero Section with Traced 'atlantis.tysonmediagroup.org' Title -->
+            <section class="hero-section">
+                <!-- Ambient Frosted Glass Background Stage -->
+                <div class="hero-bg-carousel" aria-hidden="true">
+                    <div class="hero-bg-slide active" style="background-image: url('assets/LOGOSFORGEMINI/ATLANTIS-Sunset.jpg');"></div>
+                    <div class="hero-bg-slide" style="background-image: url('assets/LOGOSFORGEMINI/ATLANTISPLAYER-FRUTIGERAERO1.webp');"></div>
+                    <div class="hero-bg-slide" style="background-image: url('assets/LOGOSFORGEMINI/ATLANTIS-Sunset2.webp');"></div>
+                    <div class="hero-bg-slide" style="background-image: url('assets/LOGOSFORGEMINI/ATLANTISPLAYER-Sunset3.jpg');"></div>
+                    <div class="hero-bg-slide" style="background-image: url('assets/LOGOSFORGEMINI/ATLANTISPLAYER_NightGasStation1.jpg');"></div>
+                    <div class="hero-bg-overlay"></div>
                 </div>
-            </aside>
 
-            <!-- Main Workstation Viewport -->
-            <main class="app-main-viewport" id="spa-main-content">
-                <!-- Dual-Rack Live Console -->
-                <div class="deck-console-grid">
-                    <!-- Unit 1: Analog Vinyl & Tape Deck -->
-                    <div class="deck-unit deck-vinyl-unit">
-                        <div class="unit-top-label">
-                            <span>ANALOG VINYL &amp; TAPE DECK</span>
-                            <span id="deck-status-text" class="unit-indicator">STANDBY</span>
-                        </div>
-
-                        <!-- Spinning Vinyl Turntable -->
-                        <div class="vinyl-turntable-stage">
-                            <div class="vinyl-disc-large" id="main-deck-vinyl">
-                                <div class="vinyl-groove-rings"></div>
-                                <div class="vinyl-center-art">
-                                    <img src="assets/images/TYSONAtlantisBanner.png" alt="Atlantis Art" class="vinyl-logo-center">
-                                </div>
-                                <div class="vinyl-tonearm" id="vinyl-tonearm"></div>
-                            </div>
-                        </div>
-
-                        <!-- Active Track Details -->
-                        <div class="deck-track-details">
-                            <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; width: 100%;">
-                                <span class="deck-track-tag" id="deck-track-tag">OFFICIAL SIGNATURE</span>
-                                <button class="btn-like-track" id="deck-like-current-btn" title="Like / Save to Favorites">
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-                                </button>
-                            </div>
-                            <h3 class="deck-track-title" id="deck-track-title">tysonmediagroupsunset</h3>
-                            <p class="deck-track-artist" id="deck-track-artist">TYSON Media Group &amp; Atlantis</p>
-                        </div>
-
-                        <!-- Timeline Scrubber -->
-                        <div class="deck-scrubber-row">
-                            <span class="time-label" id="deck-time-current">0:00</span>
-                            <div class="deck-progress-bar-wrap" id="deck-progress-wrap">
-                                <div class="deck-progress-buffer" id="deck-buffer-bar"></div>
-                                <div class="deck-progress-fill" id="deck-progress-fill"></div>
-                                <div class="deck-scrub-handle" id="deck-scrub-handle"></div>
-                            </div>
-                            <span class="time-label" id="deck-time-duration">0:00</span>
-                        </div>
-
-                        <!-- Transport Controls -->
-                        <div class="deck-transport-controls">
-                            <button class="btn-transport" id="deck-shuffle-btn" title="Shuffle Playlist">
-                                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 3 21 3 21 8"></polyline><line x1="4" y1="20" x2="21" y2="3"></line><polyline points="21 16 21 21 16 21"></polyline><line x1="15" y1="15" x2="21" y2="21"></line><line x1="4" y1="4" x2="9" y2="9"></line></svg>
-                            </button>
-                            <button class="btn-transport" id="deck-prev-btn" title="Previous Track">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="19 20 9 12 19 4 19 20"></polygon><line x1="5" y1="19" x2="5" y2="5" stroke="currentColor" stroke-width="2.5"></line></svg>
-                            </button>
-                            <button class="btn-transport-play" id="deck-play-btn" title="Play / Pause">
-                                <svg id="deck-play-icon" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-                                <svg id="deck-pause-icon" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="display: none;"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
-                            </button>
-                            <button class="btn-transport" id="deck-next-btn" title="Next Track">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 4 15 12 5 20 5 4"></polygon><line x1="19" y1="5" x2="19" y2="19" stroke="currentColor" stroke-width="2.5"></line></svg>
-                            </button>
-                            <button class="btn-transport" id="deck-loop-btn" title="Repeat Track">
-                                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="17 1 21 5 17 9"></polyline><path d="M3 11V9a4 4 0 0 1 4-4h14"></path><polyline points="7 23 3 19 7 15"></polyline><path d="M21 13v2a4 4 0 0 1-4 4H3"></path></svg>
-                            </button>
-                        </div>
-
-                        <!-- Cinema Fullscreen Trigger Button -->
-                        <div style="margin-top: 0.85rem; text-align: center;">
-                            <button class="btn-cinema-action" id="deck-cinema-btn" style="width: 100%; justify-content: center;">
-                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
-                                <span>Fullscreen Cinema Mode</span>
-                            </button>
-                        </div>
+                <div class="container-wide hero-container">
+                    <div class="hero-tag-wrap">
+                        <span class="editorial-tag">SONIC ARCHITECTURE &bull; ATLANTIS EMOTION AMBIENCE</span>
                     </div>
 
-                    <!-- Unit 2: Spectrum Visualizer & Sped Up / Slowed DSP Engine -->
-                    <div class="deck-unit deck-visualizer-unit">
-                        <div class="unit-top-label">
-                            <span>T5S MONITOR &bull; SPECTRAL FFT</span>
-                            <div class="vis-mode-pills">
-                                <button class="vis-mode-btn active" data-vis-mode="bars">Bars</button>
-                                <button class="vis-mode-btn" data-vis-mode="monoliths">PS2</button>
-                                <button class="vis-mode-btn" data-vis-mode="wave">Oscilloscope</button>
-                                <button class="vis-mode-btn" data-vis-mode="cinema">Cinema</button>
-                            </div>
-                        </div>
+                    <!-- Centerpiece Title: Exact SVG Letter-by-Letter Trace -->
+                    <div class="hero-domain-stage">
+                        <svg class="domain-hero-svg" viewBox="0 0 1100 110" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <style>
+                                    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400;1,600&amp;display=block');
+                                    .domain-hero-text {
+                                        font-family: 'Cormorant Garamond', Georgia, serif !important;
+                                        font-style: italic !important;
+                                    }
+                                </style>
+                            </defs>
+                            <text x="50%" y="62%" text-anchor="middle" dominant-baseline="middle" class="domain-hero-text">
+                                <tspan class="trace-char trace-c1">a</tspan><tspan class="trace-char trace-c2">t</tspan><tspan class="trace-char trace-c3">l</tspan><tspan class="trace-char trace-c4">a</tspan><tspan class="trace-char trace-c5">n</tspan><tspan class="trace-char trace-c6">t</tspan><tspan class="trace-char trace-c7">i</tspan><tspan class="trace-char trace-c8">s</tspan><tspan class="trace-char trace-c9">.</tspan><tspan class="trace-char trace-c10">t</tspan><tspan class="trace-char trace-c11">y</tspan><tspan class="trace-char trace-c12">s</tspan><tspan class="trace-char trace-c13">o</tspan><tspan class="trace-char trace-c14">n</tspan><tspan class="trace-char trace-c15">m</tspan><tspan class="trace-char trace-c16">e</tspan><tspan class="trace-char trace-c17">d</tspan><tspan class="trace-char trace-c18">i</tspan><tspan class="trace-char trace-c19">a</tspan><tspan class="trace-char trace-c20">g</tspan><tspan class="trace-char trace-c21">r</tspan><tspan class="trace-char trace-c22">o</tspan><tspan class="trace-char trace-c23">u</tspan><tspan class="trace-char trace-c24">p</tspan><tspan class="trace-char trace-c25">.</tspan><tspan class="trace-char trace-c26">o</tspan><tspan class="trace-char trace-c27">r</tspan><tspan class="trace-char trace-c28">g</tspan>
+                            </text>
+                        </svg>
+                    </div>
 
-                        <!-- Canvas Monitor -->
-                        <div class="canvas-screen-container player-monitor-screen" style="background-image: url('assets/images/TYSON%20T5S%20Login%20Backdrop.jpg'); background-size: cover; background-position: center;">
-                            <div class="deck-image-overlay"></div>
-                            <canvas id="deck-audio-canvas" width="640" height="220"></canvas>
-                            <div class="canvas-screen-glare"></div>
-                            <div class="canvas-watermark">T5S DSP &bull; REALTIME FFT</div>
-                        </div>
+                    <!-- Tagline in Cormorant Garamond -->
+                    <h2 class="hero-tagline-title">
+                        Stillness in Motion &bull; Sped Up, Slowed, Pitched &amp; Reverbed
+                    </h2>
 
-                        <!-- SPED UP & SLOWED DSP ENGINE -->
-                        <div class="spedup-slowed-dock">
-                            <div class="vibe-section-header">
-                                <span class="vibe-tag">SPEED &amp; VIBE ENGINE</span>
-                                <span class="vibe-preset-speed" id="dsp-current-speed-tag">1.00x</span>
-                            </div>
+                    <!-- Emotional Sub-quote -->
+                    <p class="hero-emotional-subtitle">
+                        "The hum of memory monoliths rising from an infinite sea &bull; Calibrated for nocturnal contemplation."
+                    </p>
 
-                            <div class="speed-vibe-pills">
-                                <button class="btn-vibe-preset" data-speed="0.70" data-reverb="true" data-sub="true">
-                                    <span class="vibe-preset-speed">0.70x</span>
-                                    <span class="vibe-preset-name">Chopped</span>
-                                </button>
-                                <button class="btn-vibe-preset" data-speed="0.80" data-reverb="true" data-sub="false">
-                                    <span class="vibe-preset-speed">0.80x</span>
-                                    <span class="vibe-preset-name">Slowed</span>
-                                </button>
-                                <button class="btn-vibe-preset" data-speed="0.85" data-reverb="true" data-sub="false">
-                                    <span class="vibe-preset-speed">0.85x</span>
-                                    <span class="vibe-preset-name">432Hz</span>
-                                </button>
-                                <button class="btn-vibe-preset active" data-speed="1.00" data-reverb="false" data-sub="false">
-                                    <span class="vibe-preset-speed">1.00x</span>
-                                    <span class="vibe-preset-name">Master</span>
-                                </button>
-                                <button class="btn-vibe-preset" data-speed="1.15" data-reverb="false" data-sub="false">
-                                    <span class="vibe-preset-speed">1.15x</span>
-                                    <span class="vibe-preset-name">Sped Up</span>
-                                </button>
-                                <button class="btn-vibe-preset" data-speed="1.25" data-reverb="false" data-sub="false">
-                                    <span class="vibe-preset-speed">1.25x</span>
-                                    <span class="vibe-preset-name">Nightcore</span>
-                                </button>
-                                <button class="btn-vibe-preset" data-speed="1.40" data-reverb="false" data-sub="false">
-                                    <span class="vibe-preset-speed">1.40x</span>
-                                    <span class="vibe-preset-name">Hyper</span>
-                                </button>
-                            </div>
+                    <!-- Hero Action Buttons -->
+                    <div class="hero-cta-group">
+                        <a href="player.html" class="btn btn-primary hero-launch-btn">
+                            <span>Launch Player &rarr;</span>
+                        </a>
+                        <a href="#emotion-ambience" class="btn btn-secondary">
+                            <span>Emotion Ambience</span>
+                        </a>
+                        <button id="hero-sound-play-btn" class="btn btn-youtube-cta" title="Play Sunset Theme">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+                            <span id="hero-play-label">Play Sunset Theme</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
 
-                            <!-- Live Sliders -->
-                            <div class="dsp-sliders-grid">
-                                <div class="dsp-slider-box">
-                                    <div class="dsp-slider-label-row">
-                                        <span>Speed Rate</span>
-                                        <span id="dsp-speed-val">1.00x</span>
+            <!-- Home Content Sections -->
+            <div class="home-content-section">
+                <!-- Featured Audio Player Spotlight Strip -->
+                <section class="section-padding featured-audio-strip">
+                    <div class="container-wide">
+                        <div class="featured-player-card">
+                            <div class="featured-player-left">
+                                <div class="spinning-vinyl-preview" id="home-vinyl-preview">
+                                    <div class="vinyl-disc">
+                                        <div class="vinyl-grooves"></div>
+                                        <div class="vinyl-center-label">
+                                            <img src="assets/LOGOSFORGEMINI/TYSONAtlantisBanner.png" alt="Atlantis">
+                                        </div>
                                     </div>
-                                    <input type="range" id="dsp-speed-slider" min="0.50" max="1.75" step="0.01" value="1.00" class="dsp-slider">
                                 </div>
-                                <div class="dsp-slider-box">
-                                    <div class="dsp-slider-label-row">
-                                        <span>Master Volume</span>
-                                        <span id="deck-volume-val">90%</span>
+                                <div class="featured-track-meta">
+                                    <span class="badge-tag">NOW SPOTLIGHTED &bull; 432Hz</span>
+                                    <h3 id="spotlight-title">tysonmediagroupsunset</h3>
+                                    <p id="spotlight-artist">TYSON Media Group &amp; Atlantis &bull; Sunset Acoustic Theme</p>
+                                    <div class="spotlight-tags">
+                                        <span class="sound-spec">Slowed Decay</span>
+                                        <span class="sound-spec">Warm Bass</span>
+                                        <span class="sound-spec">Cathedral Space</span>
                                     </div>
-                                    <input type="range" id="deck-volume-slider" min="0" max="1" step="0.01" value="0.90" class="dsp-slider volume-slider">
+                                </div>
+                            </div>
+                            <div class="featured-player-actions">
+                                <button class="btn btn-primary track-direct-play-btn" data-track-id="tyson-sunset">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                                    <span>Stream Now</span>
+                                </button>
+                                <a href="player.html" class="btn btn-outline btn-sm">
+                                    <span>Open Standalone Player &rarr;</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Sonic Disciplines Grid -->
+                <section class="section-padding" style="border-top: none; padding-top: 1rem;">
+                    <div class="container-wide">
+                        <div class="section-header-row">
+                            <div>
+                                <span class="editorial-tag">AUDIO DISCIPLINES</span>
+                                <h2 class="editorial-title">The Atlantis Sonic Spectrum</h2>
+                            </div>
+                            <a href="#studio" class="btn btn-outline btn-sm">Full Studio Breakdown &rarr;</a>
+                        </div>
+
+                        <div class="grid-4">
+                            <div class="card emotion-card">
+                                <span class="card-num">01</span>
+                                <span class="badge-tag">ACOUSTIC ATMOSPHERE</span>
+                                <h3>Slowed &amp; Reverbed</h3>
+                                <p>Extending harmonic tails, lowering resonant pitch frequencies, and crafting cavernous ambient decay for deep meditative focus.</p>
+                            </div>
+
+                            <div class="card emotion-card">
+                                <span class="card-num">02</span>
+                                <span class="badge-tag">ENERGY &amp; RHYTHM</span>
+                                <h3>Sped Up &amp; Pitched</h3>
+                                <p>Dynamic transient shaping, high-frequency excitation, and tempo manipulation engineered for vivid emotional kinetic energy.</p>
+                            </div>
+
+                            <div class="card emotion-card">
+                                <span class="card-num">03</span>
+                                <span class="badge-tag">HARDWARE NOSTALGIA</span>
+                                <h3>PS2 &amp; XBOX Ambience</h3>
+                                <p>Inspired by the monolithic boot hums of the original Xbox and the infinite ocean towers of the PlayStation 2 system menu.</p>
+                            </div>
+
+                            <div class="card emotion-card">
+                                <span class="card-num">04</span>
+                                <span class="badge-tag">AQUEOUS HARMONICS</span>
+                                <h3>Submerged Space</h3>
+                                <p>Underwater low-pass filtering, marine sound-staging, and oceanic binaural spatialization evoking the sunken stillness of Atlantis.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- AtlantisEmotionAmbience Spotlight -->
+                <section class="section-padding">
+                    <div class="container-wide">
+                        <div class="section-header-row">
+                            <div>
+                                <span class="editorial-tag">EMOTIONAL RESONANCE</span>
+                                <h2 class="editorial-title">AtlantisEmotionAmbience</h2>
+                            </div>
+                            <a href="#emotion-ambience" class="btn btn-outline btn-sm">Read the Manifesto &rarr;</a>
+                        </div>
+
+                        <div class="grid-3">
+                            <div class="sound-card emotion-glow-card">
+                                <div class="sound-card-header">
+                                    <span class="sound-tag">CONSOLES OF MEMORY &bull; PS2 COLD BLUE</span>
+                                    <h3>Ocean Monoliths (PS2 Boot)</h3>
+                                    <p>Low-frequency maritime wave oscillations, crystalline rising towers, and the vast, empty calm of the legendary PlayStation 2 BIOS screen.</p>
+                                </div>
+                                <div class="sound-card-footer">
+                                    <span class="sound-spec">432Hz &bull; 100% Wet Reverb &bull; -3.5 Semitones</span>
+                                    <button class="btn btn-outline btn-sm track-direct-play-btn" data-track-id="ps2-bios" style="margin-top: 0.8rem;">
+                                        <span>Play Track &nearr;</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="sound-card emotion-glow-card">
+                                <div class="sound-card-header">
+                                    <span class="sound-tag">NOSTALGIA ARCHIVE &bull; 2010 MEMORY</span>
+                                    <h3>it's 2010 - r e f l e c t i o n s</h3>
+                                    <p>Alyzea acoustic masterpiece slowed and pitched down with ethereal reverb tails, evoking long summer sunsets from 2010.</p>
+                                </div>
+                                <div class="sound-card-footer">
+                                    <span class="sound-spec">Slowed + Pitched &bull; Nostalgia Mix &bull; Warm Tape</span>
+                                    <button class="btn btn-outline btn-sm track-direct-play-btn" data-track-id="its-2010-reflections" style="margin-top: 0.8rem;">
+                                        <span>Play Track &nearr;</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="sound-card emotion-glow-card">
+                                <div class="sound-card-header">
+                                    <span class="sound-tag">ORGANIC CALM &bull; TIDE POOL MEDITATION</span>
+                                    <h3>Tide Pool &bull; Slowed Submersion</h3>
+                                    <p>Gentle aqueous pads, binaural stereo widening, and softened transient decay crafted for nocturnal stillness in motion.</p>
+                                </div>
+                                <div class="sound-card-footer">
+                                    <span class="sound-spec">Official Soundtrack &bull; 0.85x Speed &bull; Extended Lows</span>
+                                    <button class="btn btn-outline btn-sm track-direct-play-btn" data-track-id="tide-pool" style="margin-top: 0.8rem;">
+                                        <span>Play Track &nearr;</span>
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </section>
+            </div>
+        </div>
 
-                <!-- Discography & Playlists Repertoire Grid -->
-                <div class="app-repertoire-section" id="playlists">
-                    <div class="repertoire-header-bar">
-                        <div class="repertoire-title-group">
-                            <span class="repertoire-mini-tag">ACTIVE SELECTION</span>
-                            <h2 class="repertoire-main-title">Track Discography</h2>
+        <!-- ===================================================================
+             VIEW 2: AUDIO STUDIO (#studio)
+             =================================================================== -->
+        <div id="view-studio" class="page-view">
+            <section class="page-header">
+                <div class="container-wide page-header-container">
+                    <div class="hero-top-row">
+                        <span class="editorial-tag">SONIC ENGINEERING &bull; DSP PIPELINE</span>
+                    </div>
+                    <div class="hero-bottom-left-anchor">
+                        <h1 class="page-title oversized-faint-title">Studio</h1>
+                        <p class="page-subtitle">
+                            TYSON Atlantis manipulates frequency, time, and spatial depth to transform sound into visceral atmospheric architecture.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section-padding">
+                <div class="container-wide">
+                    <div class="grid-3">
+                        <div class="card emotion-card">
+                            <span class="card-num">I</span>
+                            <span class="badge-tag">DSP PROCESS</span>
+                            <h3>Time-Stretching &amp; Granular Delay</h3>
+                            <p>Stretching audio up to 400% while retaining transient micro-details, scattering sound grains into multi-layered ambient clouds.</p>
+                        </div>
+
+                        <div class="card emotion-card">
+                            <span class="card-num">II</span>
+                            <span class="badge-tag">FREQUENCY SHIFTING</span>
+                            <h3>Harmonic Pitch Modulation</h3>
+                            <p>Fine-pitch detuning down to the sub-bass foundation (-12 to -24 semitones) for dense, weighty sonic depth.</p>
+                        </div>
+
+                        <div class="card emotion-card">
+                            <span class="card-num">III</span>
+                            <span class="badge-tag">ACOUSTIC SPACE</span>
+                            <h3>Convolution &amp; Algorithmic Reverbs</h3>
+                            <p>Simulating immense reflective spaces—from cathedral vaults to underwater canyons and vintage hardware chamber emulations.</p>
                         </div>
                     </div>
 
-                    <!-- Dynamic Repertoire List Grid -->
-                    <div class="playlist-items-grid" id="deck-playlist-list">
-                        <!-- Populated dynamically by app.js -->
+                    <div style="margin-top: 3rem; text-align: center;">
+                        <a href="player.html" class="btn btn-primary">
+                            <span>Open Standalone Player Deck &rarr;</span>
+                        </a>
                     </div>
                 </div>
-            </main>
-        </div>
-    </div>
-
-    <!-- FULLSCREEN CINEMA MODE OVERLAY (Supports Song-Specific GIF / Video / Custom URL) -->
-    <div class="fullscreen-cinema-overlay" id="fullscreen-cinema-overlay" aria-hidden="true">
-        <!-- Background Media Layer (Video / GIF / Image) -->
-        <div class="fullscreen-media-layer" id="fullscreen-media-layer">
-            <img src="assets/images/ATLANTISPLAYER_NightGasStation1.jpg" alt="Cinema Background" class="fullscreen-bg-media" id="fullscreen-bg-media">
-            <video id="fullscreen-bg-video" class="fullscreen-bg-media" autoplay loop muted playsinline style="display: none;"></video>
-            <div class="fullscreen-media-vignette"></div>
+            </section>
         </div>
 
-        <!-- Cinema Top Bar -->
-        <div class="fullscreen-cinema-topbar">
-            <div class="cinema-title-wrap">
-                <span class="cinema-top-tag" id="cinema-vibe-tag">ATLANTIS CINEMA &bull; SLOWED + REVERB</span>
-                <h2 class="cinema-track-title" id="cinema-track-title">tysonmediagroupsunset</h2>
-                <p id="cinema-track-artist" style="font-size: 0.95rem; color: #bae6fd;">TYSON Media Group &amp; Atlantis</p>
-            </div>
-            <div class="cinema-top-actions">
-                <button class="btn-cinema-action" id="cinema-change-media-btn">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
-                    <span>Change Visuals / Video</span>
-                </button>
-                <button class="btn-cinema-action" id="cinema-exit-btn">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                    <span>Exit Cinema</span>
-                </button>
-            </div>
-        </div>
-
-        <!-- Center Rotating Vinyl -->
-        <div class="fullscreen-cinema-center">
-            <div class="cinema-vinyl-wrap" id="cinema-vinyl-wrap">
-                <div class="vinyl-disc-large" style="width: 100%; height: 100%;">
-                    <div class="vinyl-groove-rings"></div>
-                    <div class="vinyl-center-art">
-                        <img src="assets/images/TYSONAtlantisBanner.png" alt="Atlantis Art" class="vinyl-logo-center">
+        <!-- ===================================================================
+             VIEW 3: ATLANTIS EMOTION AMBIENCE (#emotion-ambience)
+             =================================================================== -->
+        <div id="view-emotion-ambience" class="page-view">
+            <section class="page-header">
+                <div class="container-wide page-header-container">
+                    <div class="hero-top-row">
+                        <span class="editorial-tag">PHILOSOPHICAL SOUNDSCAPES</span>
+                    </div>
+                    <div class="hero-bottom-left-anchor">
+                        <h1 class="page-title oversized-faint-title">Emotion Ambience</h1>
+                        <p class="page-subtitle">
+                            Ambient sound that holds meaning. Inspired by the profound, slightly lonely, yet comforting atmospheres of early 2000s hardware boot screens and boundless virtual worlds.
+                        </p>
                     </div>
                 </div>
-            </div>
-        </div>
+            </section>
 
-        <!-- Cinema Floating Bottom Transport HUD -->
-        <div class="fullscreen-cinema-bottombar">
-            <div class="deck-scrubber-row">
-                <span class="time-label" id="cinema-time-current">0:00</span>
-                <div class="deck-progress-bar-wrap" id="cinema-progress-wrap">
-                    <div class="deck-progress-fill" id="cinema-progress-fill"></div>
-                </div>
-                <span class="time-label" id="cinema-time-duration">0:00</span>
-            </div>
-
-            <div class="deck-transport-controls" style="justify-content: center; gap: 1.5rem;">
-                <button class="btn-transport" id="cinema-prev-btn" title="Previous Track">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><polygon points="19 20 9 12 19 4 19 20"></polygon><line x1="5" y1="19" x2="5" y2="5" stroke="currentColor" stroke-width="2.5"></line></svg>
-                </button>
-                <button class="btn-transport-play" id="cinema-play-btn" title="Play / Pause">
-                    <svg id="cinema-play-icon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-                    <svg id="cinema-pause-icon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="display: none;"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
-                </button>
-                <button class="btn-transport" id="cinema-next-btn" title="Next Track">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 4 15 12 5 20 5 4"></polygon><line x1="19" y1="5" x2="19" y2="19" stroke="currentColor" stroke-width="2.5"></line></svg>
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- CINEMA MEDIA PICKER MODAL -->
-    <div class="cinema-media-picker-modal" id="cinema-media-picker-modal" aria-hidden="true">
-        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
-            <h3 style="font-size: 1.1rem; color: #fff; font-family: var(--font-heading);">Choose Visual Backdrop</h3>
-            <button id="close-cinema-media-modal-btn" style="background: none; border: none; color: #94a3b8; font-size: 1.5rem; cursor: pointer;">&times;</button>
-        </div>
-
-        <div class="media-presets-grid">
-            <div class="media-preset-card active" data-media-type="image" data-media-src="assets/images/ATLANTISPLAYER_NightGasStation1.jpg">
-                <img src="assets/images/ATLANTISPLAYER_NightGasStation1.jpg" alt="Night Drift">
-                <span>Night Gas Station</span>
-            </div>
-            <div class="media-preset-card" data-media-type="image" data-media-src="assets/images/ATLANTIS-Sunset.jpg">
-                <img src="assets/images/ATLANTIS-Sunset.jpg" alt="Sunset Dusk">
-                <span>2010 Sunset Dusk</span>
-            </div>
-            <div class="media-preset-card" data-media-type="image" data-media-src="assets/images/ATLANTISPLAYER_PS2_T5S-CLOCK.webp">
-                <img src="assets/images/ATLANTISPLAYER_PS2_T5S-CLOCK.webp" alt="PS2 Monoliths">
-                <span>PS2 Ocean Void</span>
-            </div>
-            <div class="media-preset-card" data-media-type="image" data-media-src="assets/images/ATLANTISPLAYER-FRUTIGERAERO1.webp">
-                <img src="assets/images/ATLANTISPLAYER-FRUTIGERAERO1.webp" alt="Frutiger Aero">
-                <span>Frutiger Aquarium</span>
-            </div>
-            <div class="media-preset-card" data-media-type="image" data-media-src="assets/images/ATLANTISPLAYER-XBOX1.webp">
-                <img src="assets/images/ATLANTISPLAYER-XBOX1.webp" alt="Xbox Core">
-                <span>Xbox Neon Core</span>
-            </div>
-            <div class="media-preset-card" data-media-type="image" data-media-src="assets/images/TYSON%20T5S%20Login%20Backdrop.jpg">
-                <img src="assets/images/TYSON%20T5S%20Login%20Backdrop.jpg" alt="T5S Login">
-                <span>T5S Login Stage</span>
-            </div>
-        </div>
-
-        <div style="margin-top: 1rem;">
-            <label style="display: block; font-size: 0.78rem; color: #38bdf8; margin-bottom: 0.4rem; font-weight: 600;">Custom Video, GIF, or Image URL:</label>
-            <div style="display: flex; gap: 0.5rem;">
-                <input type="url" id="custom-media-url-input" placeholder="https://example.com/aesthetic-loop.mp4 or .gif" style="flex: 1; padding: 0.6rem 0.8rem; background: #000; border: 1px solid #334155; border-radius: 6px; color: #fff; font-size: 0.85rem;">
-                <button id="apply-custom-media-btn" style="padding: 0.6rem 1rem; background: #38bdf8; border: none; border-radius: 6px; color: #000; font-weight: 700; cursor: pointer;">Apply</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- SIGN IN MODAL (GOOGLE & DISCORD REAL OAUTH) -->
-    <div class="settings-modal" id="auth-modal" aria-hidden="true" role="dialog">
-        <div class="settings-modal-backdrop" id="auth-modal-backdrop"></div>
-        <div class="settings-modal-dialog auth-modal-dialog">
-            <button class="settings-modal-close" id="auth-modal-close-btn" aria-label="Close">&times;</button>
-            <div class="settings-header">
-                <h3 class="settings-title">Sign In to Atlantis</h3>
-                <p class="settings-subtitle">Connect your Google or Discord account to sync playlists, liked songs &amp; DSP presets.</p>
-            </div>
-
-            <div class="oauth-buttons-list">
-                <!-- Google GIS Official Container -->
-                <div id="google-gis-btn-container" style="display: flex; justify-content: center; margin-bottom: 0.5rem;"></div>
-
-                <button class="btn-oauth btn-oauth-google" id="oauth-google-btn">
-                    <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
-                    <span>Continue with Google</span>
-                </button>
-
-                <button class="btn-oauth btn-oauth-discord" id="oauth-discord-btn">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.893.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
-                    <span>Continue with Discord</span>
-                </button>
-
-                <!-- Expandable Real OAuth Client Credentials Config -->
-                <div style="margin-top: 1rem; text-align: left; border-top: 1px solid var(--border-subtle); padding-top: 1rem;">
-                    <details style="font-size: 0.82rem; color: #94a3b8; cursor: pointer;">
-                        <summary style="font-weight: 600; color: #38bdf8; outline: none; margin-bottom: 0.6rem;">Configure OAuth Client IDs</summary>
-                        <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-top: 0.5rem; background: #000; padding: 0.85rem; border-radius: 6px; border: 1px solid #1e293b;">
-                            <div>
-                                <label style="display: block; font-size: 0.72rem; color: #cbd5e1; margin-bottom: 0.25rem;">Google Client ID (Google Cloud Console):</label>
-                                <input type="text" id="config-google-client-id" placeholder="e.g. 123456789-abc.apps.googleusercontent.com" style="width: 100%; padding: 0.5rem; background: #0d1117; border: 1px solid #334155; border-radius: 4px; color: #fff; font-size: 0.75rem;">
-                            </div>
-                            <div>
-                                <label style="display: block; font-size: 0.72rem; color: #cbd5e1; margin-bottom: 0.25rem;">Discord Client ID (Discord Developer Portal):</label>
-                                <input type="text" id="config-discord-client-id" placeholder="e.g. 112233445566778899" style="width: 100%; padding: 0.5rem; background: #0d1117; border: 1px solid #334155; border-radius: 4px; color: #fff; font-size: 0.75rem;">
-                            </div>
-                            <div style="background: rgba(56, 189, 248, 0.08); border: 1px dashed rgba(56, 189, 248, 0.4); padding: 0.5rem; border-radius: 4px;">
-                                <div style="font-size: 0.7rem; color: #38bdf8; font-weight: 600; margin-bottom: 2px;">Authorized JavaScript Origin to paste into Google Cloud:</div>
-                                <code id="current-origin-display" style="font-size: 0.75rem; color: #fff; word-break: break-all; user-select: all;">http://localhost</code>
-                            </div>
-                            <button id="save-oauth-config-btn" style="padding: 0.5rem; background: #38bdf8; border: none; border-radius: 4px; color: #000; font-weight: 700; font-size: 0.75rem; cursor: pointer;">Save OAuth Keys</button>
+            <section class="section-padding">
+                <div class="container" style="max-width: 1080px;">
+                    <div style="font-size: 1.25rem; line-height: 1.95; color: var(--text-body); margin-top: 1rem;">
+                        <div class="modal-callout emotion-manifest-callout" style="margin: 2.5rem 0 3.5rem 0; text-align: center; border-left: none; border-top: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle); padding: 3rem 2rem;">
+                            <span style="font-family: var(--font-heading); font-size: 3.2rem; font-style: italic; color: var(--text-white); display: block; margin-bottom: 0.5rem; text-shadow: 0 0 25px var(--accent-glow);">
+                                "A Resonance of Memory"
+                            </span>
+                            <span style="font-size: 0.85rem; color: var(--text-dim); letter-spacing: 0.18em; text-transform: uppercase;">
+                                The AtlantisEmotionAmbience Manifest &bull; 432Hz Core
+                            </span>
                         </div>
-                    </details>
+
+                        <p style="margin-bottom: 2.25rem;">
+                            There was an unmistakable emotional weight to turning on a console like the <strong>PlayStation 2</strong> or original <strong>Xbox</strong> late at night. The sound of memory card towers rising from a foggy ocean, or a radioactive core humming in the dark, wasn't just UI audio—it was an invitation into an expansive, calm dimension.
+                        </p>
+                        <p style="margin-bottom: 2.25rem;">
+                            <strong>AtlantisEmotionAmbience</strong> captures that specific feeling. By synthesizing warm tape flutter, sub-octave droning, and shimmering high-register reverberation, we craft sounds that feel like memories you didn't know you had.
+                        </p>
+
+                        <div style="margin: 3.5rem 0; text-align: center;">
+                            <button class="btn btn-primary track-direct-play-btn" data-track-id="ps2-bios">
+                                <span>Experience PS2 Ocean Ambience in Deck &rarr;</span>
+                            </button>
+                        </div>
+                    </div>
                 </div>
+            </section>
+        </div>
+
+        <!-- ===================================================================
+             VIEW 4: CATALOG & RELEASES (#catalog)
+             =================================================================== -->
+        <div id="view-catalog" class="page-view">
+            <section class="page-header">
+                <div class="container-wide page-header-container">
+                    <div class="hero-top-row">
+                        <span class="editorial-tag">OFFICIAL TYSON ATLANTIS DISCOGRAPHY</span>
+                    </div>
+                    <div class="hero-bottom-left-anchor">
+                        <h1 class="page-title oversized-faint-title">Releases</h1>
+                        <p class="page-subtitle">
+                            Stream and explore original sound design, slowed/reverbed audio productions, and film soundtracks composed for TYSON Media Group.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section-padding">
+                <div class="container-wide">
+                    <div class="grid-3" id="catalog-cards-grid">
+                        <div class="card emotion-card">
+                            <span class="card-num">#001</span>
+                            <span class="badge-tag">OFFICIAL SIGNATURE</span>
+                            <h3>tysonmediagroupsunset</h3>
+                            <p>The definitive evening score of TYSON Media Group. Warm sunset pads, extended low-end decay, and serene stillness.</p>
+                            <div style="margin-top: 1.5rem;">
+                                <button class="btn btn-outline btn-sm track-direct-play-btn" data-track-id="tyson-sunset">
+                                    <span>Play Track &circlearrowright;</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="card emotion-card">
+                            <span class="card-num">#002</span>
+                            <span class="badge-tag">SLOWED + PITCHED</span>
+                            <h3>it's 2010 - r e f l e c t i o n s</h3>
+                            <p>Alyzea acoustic masterpiece slowed and pitched down with nostalgic reverb tails for long summer drives.</p>
+                            <div style="margin-top: 1.5rem;">
+                                <button class="btn btn-outline btn-sm track-direct-play-btn" data-track-id="its-2010-reflections">
+                                    <span>Play Track &circlearrowright;</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="card emotion-card">
+                            <span class="card-num">#003</span>
+                            <span class="badge-tag">SLOWED + REVERB</span>
+                            <h3>ahh, what a nice evening</h3>
+                            <p>Summer Breeze slowed down, pitched into harmonic depths, and bathed in warm cathedral reverb.</p>
+                            <div style="margin-top: 1.5rem;">
+                                <button class="btn btn-outline btn-sm track-direct-play-btn" data-track-id="summer-breeze-evening">
+                                    <span>Play Track &circlearrowright;</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="card emotion-card">
+                            <span class="card-num">#004</span>
+                            <span class="badge-tag">OFFICIAL SOUNDTRACK</span>
+                            <h3>Tide Pool (Original Core Mix)</h3>
+                            <p>The iconic atmospheric foundation score of the myT5S platform and TYSON Media Group portal.</p>
+                            <div style="margin-top: 1.5rem;">
+                                <button class="btn btn-outline btn-sm track-direct-play-btn" data-track-id="tide-pool">
+                                    <span>Play Track &circlearrowright;</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="card emotion-card">
+                            <span class="card-num">#005</span>
+                            <span class="badge-tag">HARDWARE ARCHIVE</span>
+                            <h3>PlayStation 2 Ocean Monoliths</h3>
+                            <p>All PS2 BIOS sounds and ocean memory towers remastered for nocturnal immersion.</p>
+                            <div style="margin-top: 1.5rem;">
+                                <button class="btn btn-outline btn-sm track-direct-play-btn" data-track-id="ps2-bios">
+                                    <span>Play Track &circlearrowright;</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="card emotion-card">
+                            <span class="card-num">#006</span>
+                            <span class="badge-tag">ATMOSPHERIC DNB</span>
+                            <h3>B R E A K  S T A T I O N</h3>
+                            <p>Deep atmospheric jungle, liquid drum &amp; bass breaks, and spatial reverberation.</p>
+                            <div style="margin-top: 1.5rem;">
+                                <button class="btn btn-outline btn-sm track-direct-play-btn" data-track-id="break-station">
+                                    <span>Play Track &circlearrowright;</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ===================================================================
+             VIEW 5: ACOUSTIC PHILOSOPHY (#about)
+             =================================================================== -->
+        <div id="view-about" class="page-view">
+            <section class="page-header">
+                <div class="container-wide page-header-container">
+                    <div class="hero-top-row">
+                        <span class="editorial-tag">THE SONIC ETHOS</span>
+                    </div>
+                    <div class="hero-bottom-left-anchor">
+                        <h1 class="page-title oversized-faint-title">Philosophy</h1>
+                        <p class="page-subtitle">
+                            Audio is not background filler—it is the emotional architecture of perception.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section-padding">
+                <div class="container" style="max-width: 1080px;">
+                    <div style="font-size: 1.25rem; line-height: 1.95; color: var(--text-body); margin-top: 1rem;">
+                        <div class="modal-callout emotion-manifest-callout" style="margin: 2.5rem 0 3.5rem 0; text-align: center; border-left: none; border-top: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle); padding: 3rem 2rem;">
+                            <span style="font-family: var(--font-heading); font-size: 3.2rem; font-style: italic; color: var(--text-white); display: block; margin-bottom: 0.5rem; text-shadow: 0 0 25px var(--accent-glow);">
+                                "Stillness in Motion"
+                            </span>
+                            <span style="font-size: 0.85rem; color: var(--text-dim); letter-spacing: 0.18em; text-transform: uppercase;">
+                                Official Motto &bull; TYSON Atlantis &bull; Audio Studio
+                            </span>
+                        </div>
+
+                        <p style="margin-bottom: 2.25rem;">
+                            At TYSON Atlantis, our approach is rooted in the belief that slowing down, pitch-shifting, and adding spatial reverb isn't just a trend—it unlocks hidden harmonic frequencies that trigger deep human nostalgia.
+                        </p>
+                        <p style="margin-bottom: 2.25rem;">
+                            Whether producing the soundtrack for high-speed racing telemetry films or crafting ambient soundscapes for nocturnal coding, our productions are engineered to create a tranquil sanctuary of sound.
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- ===================================================================
+         PERSISTENT FLOATING BOTTOM AUDIO MINI-PLAYER DOCK
+         =================================================================== -->
+    <div class="bottom-audio-dock" id="persistent-audio-dock">
+        <div class="dock-container">
+            <!-- Left: Mini Track Details -->
+            <div class="dock-track-info">
+                <a href="player.html" class="dock-thumb-wrap" title="Open Standalone Player">
+                    <div class="dock-mini-vinyl" id="dock-mini-vinyl">
+                        <img src="assets/LOGOSFORGEMINI/TYSONAtlantisBanner.png" alt="Vinyl Label">
+                    </div>
+                </a>
+                <div class="dock-meta-text">
+                    <a href="player.html" class="dock-title-link" id="dock-track-title">tysonmediagroupsunset</a>
+                    <span class="dock-artist" id="dock-track-artist">TYSON Media Group &bull; Sunset Theme</span>
+                </div>
+            </div>
+
+            <!-- Center: Transport & Progress Scrubber -->
+            <div class="dock-controls-center">
+                <div class="dock-buttons-row">
+                    <button class="dock-btn" id="dock-prev-btn" title="Previous Track">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="19 20 9 12 19 4 19 20"></polygon><line x1="5" y1="19" x2="5" y2="5" stroke="currentColor" stroke-width="2.5"></line></svg>
+                    </button>
+                    <button class="dock-btn-play" id="dock-play-btn" title="Play / Pause">
+                        <svg id="dock-play-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                        <svg id="dock-pause-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="display: none;"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+                    </button>
+                    <button class="dock-btn" id="dock-next-btn" title="Next Track">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 4 15 12 5 20 5 4"></polygon><line x1="19" y1="5" x2="19" y2="19" stroke="currentColor" stroke-width="2.5"></line></svg>
+                    </button>
+                </div>
+                <div class="dock-scrubber-row">
+                    <span class="dock-time" id="dock-time-current">0:00</span>
+                    <div class="dock-progress-track" id="dock-progress-wrap">
+                        <div class="dock-progress-fill" id="dock-progress-fill"></div>
+                    </div>
+                    <span class="dock-time" id="dock-time-duration">0:00</span>
+                </div>
+            </div>
+
+            <!-- Right: Mini Visualizer & Deck Launcher -->
+            <div class="dock-actions-right">
+                <canvas id="dock-mini-visualizer" width="80" height="32" class="dock-mini-canvas" title="Live Visualizer"></canvas>
+                <span class="dock-speed-badge" id="dock-speed-badge">1.00x</span>
+                <a href="player.html" class="btn btn-outline btn-xs dock-deck-open-btn" title="Open Full Standalone Player">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+                    <span>Player</span>
+                </a>
             </div>
         </div>
     </div>
 
-    <!-- ADD TO PLAYLIST MODAL -->
-    <div class="settings-modal" id="add-to-playlist-modal" aria-hidden="true" role="dialog">
-        <div class="settings-modal-backdrop" id="add-to-playlist-backdrop"></div>
-        <div class="settings-modal-dialog" style="max-width: 440px;">
-            <button class="settings-modal-close" id="add-to-playlist-close-btn">&times;</button>
-            <div class="settings-header">
-                <h3 class="settings-title">Add Track to Playlist</h3>
-                <p class="settings-subtitle" id="add-track-modal-title">Select a playlist to add this track to.</p>
-            </div>
-            <div id="add-to-playlist-list" style="display: flex; flex-direction: column; gap: 0.5rem; margin: 1.25rem 0; max-height: 240px; overflow-y: auto;">
-                <!-- Dynamically populated -->
-            </div>
-            <button class="create-playlist-btn" id="modal-quick-new-playlist-btn" style="width: 100%; justify-content: center;">
-                + Create New Playlist
-            </button>
-        </div>
-    </div>
+    <!-- Main Footer with Full 44-Endpoint Registry -->
+    <footer class="main-footer">
+        <div class="container-wide">
+            <div class="footer-top-grid">
+                <div class="footer-brand-col">
+                    <img src="assets/LOGOSFORGEMINI/TYSONAtlantisBanner.png" alt="TYSON Atlantis" class="footer-brand-logo">
+                    <p class="footer-brand-desc">
+                        The acoustic sound laboratory of TYSON Media Group. Specializing in slowed, sped-up, pitched, reverbed audio synthesis, and atmospheric Emotion Ambience.
+                    </p>
+                </div>
 
-    <!-- CREATE CUSTOM PLAYLIST MODAL -->
-    <div class="settings-modal" id="create-playlist-modal" aria-hidden="true" role="dialog">
-        <div class="settings-modal-backdrop" id="create-playlist-backdrop"></div>
-        <div class="settings-modal-dialog" style="max-width: 460px;">
-            <button class="settings-modal-close" id="create-playlist-close-btn">&times;</button>
-            <div class="settings-header">
-                <h3 class="settings-title">Create New Playlist</h3>
-                <p class="settings-subtitle">Curate your favorite sped up, slowed, and ambient tracks.</p>
-            </div>
-            <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1.25rem;">
-                <div>
-                    <label style="display: block; font-size: 0.78rem; color: #94a3b8; margin-bottom: 0.35rem;">Playlist Name</label>
-                    <input type="text" id="new-playlist-title-input" placeholder="e.g. Late Night Sped Up Drives" style="width: 100%; padding: 0.7rem; background: #000; border: 1px solid #334155; border-radius: 6px; color: #fff;">
+                <div class="footer-links-col">
+                    <h4 class="footer-col-title">Navigation</h4>
+                    <ul class="footer-links-list">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="player.html">Standalone Player</a></li>
+                        <li><a href="#catalog">Catalog &amp; Releases</a></li>
+                        <li><a href="#emotion-ambience">AtlantisEmotionAmbience</a></li>
+                        <li><a href="#studio">Audio Studio</a></li>
+                        <li><a href="#about">Acoustic Philosophy</a></li>
+                    </ul>
                 </div>
-                <div>
-                    <label style="display: block; font-size: 0.78rem; color: #94a3b8; margin-bottom: 0.35rem;">Vibe / Description</label>
-                    <input type="text" id="new-playlist-desc-input" placeholder="e.g. 1.25x tempo + cathedral reverb" style="width: 100%; padding: 0.7rem; background: #000; border: 1px solid #334155; border-radius: 6px; color: #fff;">
+
+                <div class="footer-links-col">
+                    <h4 class="footer-col-title">Media Group Registry</h4>
+                    <ul class="footer-links-list">
+                        <li><a href="https://tysonmediagroup.org" target="_blank" rel="noopener">tysonmediagroup.org &nearr;</a></li>
+                        <li><a href="https://atlantis.tysonmediagroup.org">atlantis.tysonmediagroup.org</a></li>
+                        <li><a href="https://tr.tysonmediagroup.org" target="_blank" rel="noopener">tr.tysonmediagroup.org &nearr;</a></li>
+                        <li><a href="https://myt5s.app" target="_blank" rel="noopener">myt5s.app &nearr;</a></li>
+                    </ul>
                 </div>
-                <button id="submit-create-playlist-btn" style="padding: 0.75rem; background: #38bdf8; border: none; border-radius: 6px; color: #000; font-weight: 700; cursor: pointer; margin-top: 0.5rem;">Save Playlist</button>
             </div>
+
+            <!-- Complete 44-Endpoint Registry Collapsible Accordion -->
+            <details class="corporate-directory-accordion">
+                <summary class="corporate-directory-summary">
+                    <span>TYSON Media Group &bull; Complete 44-Endpoint Network Registry</span>
+                    <span class="accordion-icon">+</span>
+                </summary>
+                <div class="corporate-directory-body">
+                    <div class="directory-columns-grid">
+                        <div>
+                            <h5>Core Platforms</h5>
+                            <ul>
+                                <li><a href="https://tysonmediagroup.org" target="_blank" rel="noopener">tysonmediagroup.org &nearr;</a></li>
+                                <li><a href="https://myt5s.app" target="_blank" rel="noopener">myt5s.app &nearr;</a></li>
+                                <li><a href="https://t5s.app" target="_blank" rel="noopener">t5s.app &nearr;</a></li>
+                                <li><a href="https://atlantis.tysonmediagroup.org">atlantis.tysonmediagroup.org</a></li>
+                                <li><a href="https://tr.tysonmediagroup.org" target="_blank" rel="noopener">tr.tysonmediagroup.org &nearr;</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h5>Subdomains &amp; Racing</h5>
+                            <ul>
+                                <li><a href="https://323.tr.tysonmediagroup.org" target="_blank" rel="noopener">323.tr.tysonmediagroup.org &nearr;</a></li>
+                                <li><a href="https://525.tr.tysonmediagroup.org" target="_blank" rel="noopener">525.tr.tysonmediagroup.org &nearr;</a></li>
+                                <li><a href="https://11.caymans.tr.tysonmediagroup.org" target="_blank" rel="noopener">11.caymans.tr.tysonmediagroup.org &nearr;</a></li>
+                                <li><a href="https://8.caymans.tr.tysonmediagroup.org" target="_blank" rel="noopener">8.caymans.tr.tysonmediagroup.org &nearr;</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </details>
+
+            <!-- Centered Italic atlantis.tysonmediagroup.org Centerpiece with Glass Gradient Halo -->
+            <div class="footer-domain-centerpiece">
+                <div class="footer-logo-stage">
+                    <img src="assets/LOGOSFORGEMINI/TYSONAtlantisBanner.png" alt="TYSON Atlantis" class="footer-trace-logo">
+                </div>
+                <div class="footer-domain-title">atlantis.tysonmediagroup.org</div>
+                <div class="footer-domain-subtext">Sonic Architecture &bull; AtlantisEmotionAmbience &bull; Stillness in Motion</div>
+            </div>
+
+            <div class="footer-bottom">
+                <div>&copy; 2026 TYSON Media Group. All rights reserved. Registered acoustic division: <code>atlantis.tysonmediagroup.org</code></div>
+            </div>
+
+            <!-- Project T6 Universal Ecosystem Anchor -->
+            <div class="project-t6-footer-banner" style="display: flex; justify-content: center; align-items: center; padding: 2rem 1rem 1rem; border-top: 1px solid rgba(255, 255, 255, 0.05); margin-top: 1.5rem;">
+                <a href="https://t6graph.tysonmediagroup.org" target="_blank" rel="noopener" title="PROJECT T6 // TYSON Media Group Framework">
+                    <img src="assets/projectT6-logo.png" alt="PROJECT T6" style="height: 32px; width: auto; opacity: 0.85; filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.2)); transition: all 0.3s ease;" onmouseover="this.style.opacity='1'; this.style.filter='drop-shadow(0 0 20px rgba(255, 255, 255, 0.5))'; this.style.transform='scale(1.03)';" onmouseout="this.style.opacity='0.85'; this.style.filter='drop-shadow(0 0 12px rgba(255, 255, 255, 0.2))'; this.style.transform='scale(1)';">
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Temporary Bottom Intro Logo with Frosted Glass Halo during trace -->
+    <div class="intro-bottom-logo-wrap">
+        <div class="intro-bottom-logo-stage">
+            <img src="assets/LOGOSFORGEMINI/TYSONAtlantisBanner.png" alt="TYSON Atlantis" class="intro-bottom-logo">
         </div>
     </div>
 
@@ -518,14 +641,22 @@
         <div class="settings-modal-dialog">
             <button class="settings-modal-close" id="settings-modal-close-btn" aria-label="Close Settings">&times;</button>
             <div class="settings-header">
-                <h3 class="settings-title">Player Preferences</h3>
+                <h3 class="settings-title">Portal Preferences</h3>
                 <p class="settings-subtitle">Customize aesthetic theme and typography system.</p>
             </div>
 
             <div class="settings-section">
                 <h4 class="settings-section-title">Visual Theme</h4>
                 <div class="theme-options-grid">
-                    <button class="theme-option-card selected" data-theme-choice="noir">
+                    <button class="theme-option-card selected" data-theme-choice="noir-aero">
+                        <div class="theme-indicator-row">
+                            <span class="theme-option-title">Black Frutiger Aero</span>
+                            <span class="theme-swatch-circle swatch-noir-aero"></span>
+                        </div>
+                        <span class="theme-option-desc">Obsidian gloss glassmorphism, 50/50 specular reflections &amp; monochrome tactile gel.</span>
+                    </button>
+
+                    <button class="theme-option-card" data-theme-choice="noir">
                         <div class="theme-indicator-row">
                             <span class="theme-option-title">Noir Midnight</span>
                             <span class="theme-swatch-circle swatch-noir"></span>
@@ -558,12 +689,18 @@
                     </button>
                 </div>
             </div>
+
+            <div class="settings-section" style="margin-bottom: 0;">
+                <button id="replay-intro-btn" class="btn btn-outline btn-sm" style="width: 100%; justify-content: center;">
+                    <span>Replay Launch Intro Sequence &circlearrowright;</span>
+                </button>
+            </div>
         </div>
     </div>
 
     <!-- Hidden HTML5 Audio Element for Web Audio API graph -->
     <audio id="main-audio-element" preload="auto" crossorigin="anonymous"></audio>
 
-    <script src="app.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
